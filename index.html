@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/night.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<h2>Fighting En💩tification with ActivityPub</h2>
+					<p>James Smith // floppy.org.uk</p>
+					<p>@Floppy@mastodon.me.uk</p>
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Web 2.Oh Dear</h2>
+					</section>
+
+					<section>
+						<img src="web.jpg">
+						<small>Credit: stolen off the Web, apparently that's fine now</small>
+					</section>
+
+					<section>
+						<blockquote>
+							Here is how platforms die: first, they are good to their users; then they abuse their users to make things better for
+							their business customers; finally, they abuse those business customers to claw back all the value for themselves. Then,
+							they die. I call this enshittification.
+						</blockquote>
+						<small>- Cory Doctorow, 2023</small>
+					</section>
+
+					<section>
+						<img src="vader.png">
+						<small>- Jeff Vader, A long long time ago</small>
+					</section>
+
+					<section>
+						<img src="thingiverse.png">
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Enter the Fediverse</h2>
+					</section>
+
+					<section>
+						<blockquote>
+							The fediverse is a collection of community-owned, ad-free, decentralised,
+							and privacy-centric social networks.
+						</blockquote>
+						<small>- <a href="https://www.fediverse.to/">fediverse.to</a></small>
+					</section>
+
+					<section>
+						<h3>Standards</h3>
+						<ul>
+							<li>HTTP</li>
+							<li>Atom/RSS</li>
+							<li>Microformats</li>
+							<li>ActivityPub</li>
+							<li>Webfinger</li>
+							<li>WebSub</li>
+							<li>OAuth</li>
+							<li>POSSE</li>
+							<li>...and more</li>
+						</ul>
+					</section>
+
+					<section>
+						<img src="Fediverse-map.webp">
+						<p><small>- <a href="https://phillipjreese.com/get-out-of-the-prison-how-to-join-mastodon-and-friendica-starting-your-journey-on-the-fediverse/">Philip J Reese</a></small></p>
+					</section>
+
+					<section>
+						<h3>Ownership</h3>
+						<p>Self-funding - people will pay!</p>
+						<ul>
+							<li>OpenCollective</li>
+							<li>Patreon</li>
+							<li>Ko-Fi</li>
+							<li>Liberapay</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h2>ActivityPub</h2>
+						<p><a href="https://activitypub.rocks">activitypub.rocks</a></p>
+					</section>
+
+					<section>
+						<img src="activitypub.png" style="background:lightgray; padding: 0.5em">
+						<small>- activitypub.rocks</small>
+					</section>
+
+					<section>
+						<h3>Content Types</h3>
+						<pre><code data-trim>
+							application/ld+json; profile="https://www.w3.org/ns/activitystreams"
+							application/activity+json
+						</code></p>
+					</section>
+
+					<section>
+						<h3>Actors</h3>
+						<small>https://mastodon.me.uk/users/Floppy</small>
+						<pre>
+							<code class="json" data-trim>
+								{
+									...
+									"id": "https://mastodon.me.uk/users/Floppy",
+									"type": "Person",
+									"following": "https://mastodon.me.uk/users/Floppy/following",
+									"followers": "https://mastodon.me.uk/users/Floppy/followers",
+									"inbox": "https://mastodon.me.uk/users/Floppy/inbox",
+									"outbox": "https://mastodon.me.uk/users/Floppy/outbox",
+									"featured": "https://mastodon.me.uk/users/Floppy/collections/featured",
+									"featuredTags": "https://mastodon.me.uk/users/Floppy/collections/tags",
+									"preferredUsername": "Floppy",
+									"name": "James Smith 💾",
+									"summary": "Generic humanoid carbon unit",
+									"url": "https://mastodon.me.uk/@Floppy",
+									...
+								}
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h3>ActivityStreams 2.0</h3>
+						<p><a href="https://www.w3.org/TR/activitystreams-core">www.w3.org/TR/activitystreams-core</a></p>
+						<h3>Activity Vocabulary</h3>
+						<p><a href="https://www.w3.org/TR/activitystreams-vocabulary">www.w3.org/TR/activitystreams-vocabulary</a></p>
+
+					</section>
+
+					<section>
+						<h3>Activities</h3>
+						<small>https://mastodon.me.uk/users/Floppy/statuses/113293745221486905/activity</small>
+						<pre>
+							<code class="json" data-trim>
+								{
+									...
+									"id":"https://mastodon.me.uk/users/Floppy/statuses/113293745221486905/activity",
+									"type":"Create",
+									"actor":"https://mastodon.me.uk/users/Floppy",
+									"published":"2024-10-12T09:29:20Z",
+									...
+									"object":{
+										...
+									}
+								}
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h3>Activity Actions</h3>
+						<ul>
+							<li>Follow</li>
+							<li>Accept</li>
+							<li>Create</li>
+							<li>Delete</li>
+							<li>Update</li>
+							<li>Like</li>
+							<li>Flag</li>
+							<li>... and so many more</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Object</h3>
+						<small>https://mastodon.me.uk/users/Floppy/statuses/113293745221486905</small>
+						<pre>
+							<code class="json" data-trim>
+								{
+									...
+									"id":"https://mastodon.me.uk/users/Floppy/statuses/113293745221486905",
+									"type":"Note",
+									"inReplyTo":null,
+									"published":"2024-10-12T09:29:20Z",
+									"url":"https://mastodon.me.uk/@Floppy/113293745221486905",
+									"attributedTo":"https://mastodon.me.uk/users/Floppy",
+									"content":"<p>Yay, <a href="https://mastodon.me.uk/tags/OggCamp" class="mention hashtag"
+											rel="tag">#<span>OggCamp</span></a>!</p>",
+									"attachment":[
+										{
+											"type":"Document",
+											"mediaType":"image/png",
+											"url":"https://mastodon.me.uk/system/media_attachments/files/113/293/742/234/978/459/original/f0503c918aab45f5.png",
+											"name":"A view from the audience in a conference room, with an OggCamp 2024 logo on screen",
+											...
+										}
+									]
+								}
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h3>Object Types</h3>
+						<ul>
+							<li>Article</li>
+							<li>Audio</li>
+							<li>Document</li>
+							<li>Event</li>
+							<li>Image</li>
+							<li>Note</li>
+							<li>Profile</li>
+							<li>Video</li>
+							<li>... and maybe your own?</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Outbox</h3>
+						<p>
+							All public activities for a user.
+						</p>
+					</section>
+
+					<section>
+						<h3>Try it out!</h3>
+						<p><a href="https://activitypub.academy">activitypub.academy</a></p>
+					</section>
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Federation</h2>
+					</section>
+
+					<section>
+						<h3>Delivery & Inbox</h3>
+						<p>Defined by <code>to</code> and <code>cc</code> fields</p>
+						<p>GET activities from outboxes</p>
+						<p>POST activities to relevant inboxes</p>
+					</section>
+
+					<section>
+						<h3>Addressing</h3>
+						<pre>
+							<code class="json" data-trim>
+								{
+									...
+									"to":[
+										"https://www.w3.org/ns/activitystreams#Public"
+									],
+									"cc":[
+										"https://mastodon.me.uk/users/Floppy/followers"
+									],
+									...
+								}
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h3>Addressing</h3>
+						<ul>
+							<li>public: as:Public magic collection in to</li>
+							<li>unlisted: as:Public magic collection in cc</li>
+							<li>private: to/cc Follower collection, no as:Public</li>
+							<li>limited: to/cc specific actors</li>
+							<li>direct: to/cc specific actors, mentions in tag</li>
+						</ul>
+						<p><small>From mastodon docs at <a href="https://docs.joinmastodon.org/spec/activitypub/#Mention">docs.joinmastodon.org/spec/activitypub/#Mention</a></small></p>
+					</section>
+
+					<section>
+						<h3>Security</h3>
+						<small>https://mastodon.me.uk/users/Floppy</small>
+						<pre>
+							<code class="json" data-trim>
+								{
+									...
+									"publicKey": {
+										"id": "https://mastodon.me.uk/users/Floppy#main-key",
+										"owner": "https://mastodon.me.uk/users/Floppy",
+										"publicKeyPem": "-----BEGIN PUBLIC KEY----- MIIBIjANB...
+											...
+											...nQIDAQAB -----END PUBLIC KEY----- "
+									},
+									...
+								}
+							</code>
+						</pre>
+						<pre>
+							<code class="ruby" data-trim>
+								rsa_key = OpenSSL::PKey::RSA.new 2048
+								cipher = OpenSSL::Cipher.new('AES-128-CBC')
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h3>HTTP Signatures</h3>
+						<small>https://docs.joinmastodon.org/spec/security</small>
+						<pre>
+							<code data-trim>
+								Signature:
+									keyId="https://my.example.com/actor#main-key",
+									headers="(request-target) host date digest",
+									signature="Y2FiYW...IxNGRiZDk4ZA=="
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h3>HTTP Signatures</h3>
+						<small>https://docs.joinmastodon.org/spec/security</small>
+						<pre>
+							<code data-trim>
+								(request-target): post /users/username/inbox
+								host: mastodon.example
+								date: 18 Dec 2019 10:08:46 GMT
+								digest: sha-256=hcK0GZB1BM4R0eenYrj9clYBuyXs/lemt5iWRYmIX0A=
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h3>Verifying</h3>
+						<small>https://docs.joinmastodon.org/spec/security</small>
+						<pre>
+							<code data-trim>
+								Signature:
+									keyId="https://my.example.com/actor#main-key",
+									headers="(request-target) host date digest",
+									signature="Y2FiYW...IxNGRiZDk4ZA=="
+							</code>
+						</pre>
+						<ul>
+							<li>Extract signature header</li>
+							<li>Build the payload from the "headers" part and the received HTTP headers</li>
+							<li>Get the key, and verify that the signature and payload match</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Discovery</h2>
+					</section>
+
+					<section>
+						<h2>Webfinger</h2>
+						<p>
+							<a href="https://webfinger.net/spec/">webfinger.net/spec</a>
+						</p>
+						<p>
+							<code>{server}/.well-known/webfinger?resource={uri}</code>
+						</p>
+						<p>
+							<code>application/jrd+json</code>
+						</p>
+					</section>
+
+					<section>
+						<h3>acct: URIs</h3>
+						<p><code>acct:floppy@mastodon.me.uk</code></p>
+						<p><a href="https://www.rfc-editor.org/rfc/rfc7565">RFC 7565</a></p>
+					</section>
+
+					<section>
+						<h3>Profile</h3>
+						<small>https://mastodon.me.uk/.well-known/webfinger?resource=acct:floppy@mastodon.me.uk</small>
+						<pre><code class="json" data-trim>
+							{
+								"subject": "acct:Floppy@mastodon.me.uk",
+								"aliases": [
+									"https://mastodon.me.uk/@Floppy",
+									"https://mastodon.me.uk/users/Floppy"
+								],
+								"links": [
+									...
+									{
+										"rel": "self",
+										"type": "application/activity+json",
+										"href": "https://mastodon.me.uk/users/Floppy"
+									},
+									...
+								]
+							}
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Remote Follow</h3>
+						<small>https://mastodon.me.uk/.well-known/webfinger?resource=acct:floppy@mastodon.me.uk</small>
+						<pre><code class="json" data-trim>
+							{
+								"subject": "acct:Floppy@mastodon.me.uk",
+								...
+								"links": [
+									...
+									{
+										"rel": "http://ostatus.org/schema/1.0/subscribe",
+										"template": "https://.../authorize_interaction?uri={uri}"
+									}
+									...
+								]
+							}
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Federails</h2>
+						<p><a href="https://gitlab.com/experimentslabs/federails">gitlab.com/experimentslabs/federails</a></p>
+					</section>
+
+					<section>
+						<h3>Setup</h3>
+						<pre><code class="sh" data-trim>
+							bundle add federails
+						</code></pre>
+						<pre><code class="ruby" data-trim>
+							# config/routes.rb
+							mount Federails::Engine => '/'
+						</code></pre>
+						<pre><code class="sh" data-trim>
+							rails generate federails:install
+							rails generate federails:install:migrations
+						</code></pre>
+
+					</section>
+
+					<section>
+						<h3>Federails::Entity</h3>
+					  <pre><code class="ruby" data-trim>
+							# app/models/user.rb
+
+							class User < ApplicationRecord
+								# Include the concern here:
+								include Federails::Entity
+
+								# Configure field names
+								acts_as_federails_actor username_field: :username, name_field: :name,
+									profile_url_method: :user_url
+							end
+            </code></pre>
+					</section>
+
+					<section>
+						<h3>Following</h3>
+						<pre><code class="ruby" data-trim>
+							target = Federails::Actor.find_by_account "floppy@mastodon.me.uk"
+
+							user.actor.following_follows.create(target_actor: target)
+						</code></pre>
+
+						<p>Incoming requests:</p>
+
+						<pre><code class="ruby" data-trim>
+							class User < ApplicationModel
+								include Federails::Entity
+
+								after_follow :throw_party
+
+							end
+						</code></pre>
+
+					</section>
+
+					<section>
+						<h3>Federails::Activity</h3>
+						<pre><code class="ruby" data-trim>
+							Federails::Activity.create!(
+								actor: user.actor,
+								action: "Create",
+								entity: comment
+							)
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Object Serialization</h3>
+						<pre><code class="ruby" data-trim>
+							class Comment < ApplicationRecord
+
+								def to_activitypub_object
+									{
+										id: url_for(self),
+										type: "Note",
+										content: comment
+										published: created_at.iso8601,
+										to: ["https://www.w3.org/ns/activitystreams#Public"],
+										cc: [commenter.actor.followers_url]
+									}
+								end
+							end
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Manyfold</h2>
+						<p><a href="https://manyfold.app">manyfold.app</a></p>
+					</section>
+
+					<section>
+						<h3>Organising 3d print models</h3>
+						<ul>
+							<li>Browse & Preview</li>
+							<li>Organise & Tidy</li>
+							<li>Troubleshoot & Convert</li>
+						</ul>
+						<p>...a bit like having your own Thingiverse</p>
+					</section>
+
+					<section>
+						<h3>Self Hosted Container</h3>
+						<img src="install.png" style="height: 50vh">
+					</section>
+
+					<section>
+						<h3>Oh no, it's live demo time</h3>
+					</section>
+
+						<section>
+						<img src="hello.png" style="height: 70vh">
+					</section>
+				</section>
+
+				<section>
+					<h2>Thanks!</h2>
+					<p>
+						<a href="https://manyfold.app">manyfold.app</a> // <a href="https://3dp.chat/@manyfold">@manyfold@3dp.chat</a>
+					</p>
+					<p>
+						<a href="https://mastodon.me.uk">mastodon.me.uk</a> // <a href="https://mastodon.me.uk/@Floppy">@Floppy@mastodon.me.uk</a>
+					</p>
+					<div style="background: lightgray; display: flex; justify-content: space-evenly; align-items: center">
+						<img src="nlnet.png" style="width: 20vw">
+						<img src="ngi.svg" style="width: 20vw">
+						<img src="opencollective.svg" style="width: 20vw">
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
